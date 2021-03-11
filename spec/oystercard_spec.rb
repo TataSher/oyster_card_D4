@@ -5,7 +5,7 @@ describe Oystercard do
   let(:card) { Oystercard.new(40) }
   let(:testing_station) { double :testing_station }
   let(:test_exit_station) { double :test_exit_station }
-  let(:history) { {entry_station: "entry_station", exit_station: "exit_station"} }
+  let(:current_trip_double) { {entry_station: "entry_station", exit_station: "exit_station"} }
 
   describe 'when first created' do
     it { is_expected.to respond_to(:balance) }
@@ -79,17 +79,20 @@ describe Oystercard do
 
   describe "#history" do
     it "returns an array with travel history" do
-      expect(card.history).to eq card.stations
+      card.touch_in("entry_station")
+      card.touch_out("exit_station")
+      expect(card.current_trip).to eq (current_trip_double)
     end
 
     it "stores stations into a hash" do
-      expect(card.stations).to eq ({})
+      expect(card.stations).to eq ([])
     end
 
     it 'stores entry_station and exit_station'do
       card.touch_in("entry_station")
       card.touch_out("exit_station")
-      expect(card.stations).to eq history
+      expect(card.stations).to eq [current_trip_double]
     end
+
   end
 end
