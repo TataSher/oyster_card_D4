@@ -11,7 +11,6 @@ class Oystercard
     @entry_station = nil
     @exit_station = nil
     @stations = []
-    @current_trip = {}
   end
 
   def top_up(amount)
@@ -26,6 +25,7 @@ class Oystercard
       raise 'Insufficient funds'
     end
     @entry_station = station
+    @current_trip = {}
     @current_trip[:entry_station] = @entry_station
     @in_journey = true
 
@@ -36,6 +36,7 @@ class Oystercard
     @exit_station = station
     @current_trip[:exit_station] = @exit_station
     @stations << @current_trip
+    @current_trip = {}
     @in_journey = false
   end
 

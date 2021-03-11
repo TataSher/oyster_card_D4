@@ -81,7 +81,7 @@ describe Oystercard do
     it "returns an array with travel history" do
       card.touch_in("entry_station")
       card.touch_out("exit_station")
-      expect(card.current_trip).to eq (current_trip_double)
+      expect(card.history).to eq card.stations
     end
 
     it "stores stations into a hash" do
